@@ -365,3 +365,5 @@ FodyWeavers.xsd
 /YaponomaniyaVKBot/appsettings.json
 /YaponomaniyaVKBot/appsettings.Development.json
 /db-data
+/DrivingSchoolPlatform.Api/appsettings.json
+/DrivingSchoolPlatform.Api/appsettings.Development.json
