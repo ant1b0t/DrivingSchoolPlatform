@@ -1,0 +1,35 @@
+version: '3.4'
+
+services:
+  drivingschoolplatform.api:
+    image: ${DOCKER_REGISTRY-}drivingschoolplatformapi
+    build:
+      context: .
+      dockerfile: DrivingSchoolPlatform.Api/Dockerfile
+    depends_on:
+      - db
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DrivingSchool_PROD_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${DrivingSchool_PROD_POSTGRES_PASSWORD}
+      POSTGRES_DB: ${DrivingSchool_PROD_POSTGRES_DB}
+    ports:
+      - '5433:5432'
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
+      - ./migrations/:/docker-entrypoint-initdb.d/
+
+  drivingschoolplatform:
+    image: ${DOCKER_REGISTRY-}drivingschoolplatform
+    build:
+      context: .
+      dockerfile: DrivingSchoolPlatform/DrivingSchoolPlatform/Dockerfile
+    depends_on:
+      - drivingschoolplatform.api
+
+volumes:
+  db-data:
+    driver: local
+
