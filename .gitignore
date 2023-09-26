@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/.env
+/YaponomaniyaVKBot/appsettings.json
+/YaponomaniyaVKBot/appsettings.Development.json
+/db-data
