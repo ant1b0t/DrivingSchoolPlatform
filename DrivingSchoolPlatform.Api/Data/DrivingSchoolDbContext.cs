@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace DrivingSchoolPlatform.Api.Data
 {
-    public class DrivingSchoolDbContext : DbContext
+    public class DrivingSchoolDbContext : IdentityDbContext<IdentityUser>
     {
-        public DbSet<UserDb> Users { get; set; }
 
         public DrivingSchoolDbContext(DbContextOptions<DrivingSchoolDbContext> options) : base(options)
         {

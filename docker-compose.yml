@@ -9,8 +9,9 @@ services:
     depends_on:
       - db
   db:
-    image: postgres
-    restart: always
+    image: postgres:latest
+    container_name: platform-db
+    restart: unless-stopped
     environment:
       POSTGRES_USER: ${DrivingSchool_PROD_POSTGRES_USER}
       POSTGRES_PASSWORD: ${DrivingSchool_PROD_POSTGRES_PASSWORD}
