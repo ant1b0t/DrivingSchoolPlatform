@@ -367,3 +367,4 @@ FodyWeavers.xsd
 /db-data
 /DrivingSchoolPlatform.Api/appsettings.json
 /DrivingSchoolPlatform.Api/appsettings.Development.json
+/.env
