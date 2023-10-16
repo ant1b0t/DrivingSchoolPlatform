@@ -6,26 +6,20 @@ services:
     image: lscr.io/linuxserver/swag:latest
     container_name: swag
     cap_add:
-      - NET_ADMIN
+    - NET_ADMIN
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Etc/UTC
-      - URL=89-108-88-127.cloudvps.regruhosting.ru
-      - VALIDATION=http
-      - SUBDOMAINS=www  # Optional: Customize as needed
-      - CERTPROVIDER=   # Optional: Customize as needed
-      - DNSPLUGIN=cloudflare  # Optional: Customize as needed
-      - PROPAGATION=   # Optional: Customize as needed
-      - EMAIL=ant1b0t@yandex.ru         # Optional: Customize as needed
-      - ONLY_SUBDOMAINS=false  # Optional: Customize as needed
-      - EXTRA_DOMAINS=  # Optional: Customize as needed
-      - STAGING=false  # Optional: Customize as needed
-    ports:
-      - 443:443
-      - 80:80  # Optional: Uncomment if needed
+    - PUID=1000
+    - PGID=1000
+    - TZ=Europe/Moscow
+    - URL=89-108-88-127.cloudvps.regruhosting.ru # change for your domain
+    - VALIDATION=http
+    - EMAIL=ant1b0t@yandex.ru # optional
+    - EXTRA_DOMAINS=89-108-88-127.cloudvps.regruhosting.ru # change for your domain
     volumes:
-      - conf:/config
+    - ./config:/config
+    ports:
+    - 443:443
+    - 80:80
     restart: unless-stopped
 
   db:
