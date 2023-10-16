@@ -12,13 +12,10 @@ services:
     - PGID=1000
     - TZ=Europe/Moscow
     - URL=89-108-88-127.cloudvps.regruhosting.ru # change for your domain
-    - SUBDOMAINS=wildcard
-    - VALIDATION=dns
-    - DNSPLUGIN=cloudflare
     - EMAIL=ant1b0t@yandex.ru # optional
     - EXTRA_DOMAINS=89-108-88-127.cloudvps.regruhosting.ru # change for your domain
     volumes:
-    - /home/aptalca/appdata/swag:/config
+    - /app/swag:/config
     ports:
     - 443:443
     - 80:80
