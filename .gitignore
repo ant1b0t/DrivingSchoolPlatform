@@ -368,3 +368,4 @@ FodyWeavers.xsd
 /DrivingSchoolPlatform.Api/appsettings.Development.json
 /.env
 /config
+/nginx
