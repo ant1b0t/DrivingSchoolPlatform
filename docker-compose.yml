@@ -1,9 +1,35 @@
 version: '3.4'
 
 services:
+  reverse-proxy:
+    image: nginxproxy/nginx-proxy:latest
+    container_name: reverse-proxy
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  letsencrypt-companion:
+    container_name: letsencrypt-companion
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    restart: unless-stopped
+    volumes_from:
+        - reverse-proxy
+    volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - ./nginx/acme:/etc/acme.sh
+    environment:
+        DEFAULT_EMAIL: ant1b0t@yandex.ru
+
   db:
     image: postgres:latest
-    container_name: dsplatform-db
+    container_name: platform-db
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${DrivingSchool_PROD_POSTGRES_USER}
@@ -24,6 +50,9 @@ services:
       - db
     ports:
       - '8081:8081'
+    environment:
+      - VIRTUAL_HOST=89-108-88-127.cloudvps.regruhosting.ru
+      - LETSENCRYPT_HOST=89-108-88-127.cloudvps.regruhosting.ru
 
   drivingschoolplatform:
     image: ${DOCKER_REGISTRY-}drivingschoolplatform
@@ -34,8 +63,25 @@ services:
       - drivingschoolplatform.api
     ports:
       - '8080:8080'
-
+    environment:
+      - VIRTUAL_HOST=89-108-88-127.cloudvps.regruhosting.ru
+      - LETSENCRYPT_HOST=89-108-88-127.cloudvps.regruhosting.ru
+      
 volumes:
+  conf:
+    driver: local
+  vhost:
+    driver: local
+  certs:
+    driver: local
+  acme:
+    driver: local
+  html:
+    driver: local
   db-data:
     driver: local
+
+networks:
+  default:
+    name: drivingschool-network
 
