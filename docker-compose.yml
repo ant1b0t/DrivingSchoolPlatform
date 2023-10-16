@@ -2,24 +2,34 @@ version: '3.4'
 
 services:
 
-  swag:
-    image: lscr.io/linuxserver/swag:latest
-    container_name: swag
-    cap_add:
-    - NET_ADMIN
-    environment:
-    - PUID=1000
-    - PGID=1000
-    - TZ=Europe/Moscow
-    - URL=89-108-88-127.cloudvps.regruhosting.ru # change for your domain
-    - EMAIL=ant1b0t@yandex.ru # optional
-    - EXTRA_DOMAINS=89-108-88-127.cloudvps.regruhosting.ru # change for your domain
-    volumes:
-    - /app/swag:/config
-    ports:
-    - 443:443
-    - 80:80
+  nginx:
+    container_name: nginx
+    image: nginxproxy/nginx-proxy
     restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./nginx/html:/usr/share/nginx/html
+      - ./nginx/certs:/etc/nginx/certs
+      - ./nginx/vhost:/etc/nginx/vhost.d
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  letsencrypt-companion:
+    container_name: letsencrypt-companion
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    restart: unless-stopped
+    volumes_from:
+        - nginx
+    volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - ./nginx/acme:/etc/acme.sh
+    environment:
+        DEFAULT_EMAIL: ant1b0t@yandex.ru
 
   db:
     image: postgres:latest
@@ -47,6 +57,8 @@ services:
       - '8081:8081'
     environment:
       - ASPNETCORE_URLS=http://+:8081
+      - VIRTUAL_HOST=89-108-88-127.cloudvps.regruhosting.ru
+      - LETSENCRYPT_HOST=89-108-88-127.cloudvps.regruhosting.ru
 
   drivingschoolplatform:
     image: ${DOCKER_REGISTRY-}drivingschoolplatform
@@ -60,6 +72,8 @@ services:
       - '8080:8080'
     environment:
       - ASPNETCORE_URLS=http://+:8080
+      - VIRTUAL_HOST=89-108-88-127.cloudvps.regruhosting.ru
+      - LETSENCRYPT_HOST=89-108-88-127.cloudvps.regruhosting.ru
 
 volumes:
   db-data:
