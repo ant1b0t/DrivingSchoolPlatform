@@ -52,7 +52,6 @@ services:
       dockerfile: DrivingSchoolPlatform.Api/Dockerfile
     depends_on:
       - db
-      - swag
     ports:
       - '8081:8081'
     environment:
@@ -66,7 +65,6 @@ services:
       context: .
       dockerfile: DrivingSchoolPlatform/DrivingSchoolPlatform/Dockerfile
     depends_on:
-      - swag
       - drivingschoolplatform.api
     ports:
       - '8080:8080'
