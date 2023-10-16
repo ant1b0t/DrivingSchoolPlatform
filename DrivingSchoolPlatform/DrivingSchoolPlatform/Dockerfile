@@ -4,20 +4,21 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
 EXPOSE 8080
-EXPOSE 8081
+ENV ASPNETCORE_URLS=https://*:8080
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["DrivingSchoolPlatform/DrivingSchoolPlatform/DrivingSchoolPlatform.csproj", "DrivingSchoolPlatform/DrivingSchoolPlatform/"]
 COPY ["DrivingSchoolPlatform/DrivingSchoolPlatform.Client/DrivingSchoolPlatform.Client.csproj", "DrivingSchoolPlatform/DrivingSchoolPlatform.Client/"]
-RUN dotnet restore "DrivingSchoolPlatform/DrivingSchoolPlatform/DrivingSchoolPlatform.csproj"
+RUN dotnet restore "./DrivingSchoolPlatform/DrivingSchoolPlatform/./DrivingSchoolPlatform.csproj"
 COPY . .
 WORKDIR "/src/DrivingSchoolPlatform/DrivingSchoolPlatform"
-RUN dotnet build "DrivingSchoolPlatform.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./DrivingSchoolPlatform.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "DrivingSchoolPlatform.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./DrivingSchoolPlatform.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

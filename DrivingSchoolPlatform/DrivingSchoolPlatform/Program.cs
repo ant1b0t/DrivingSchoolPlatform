@@ -1,4 +1,3 @@
-
 using DrivingSchoolPlatform.Client.Pages;
 using DrivingSchoolPlatform.Components;
 
@@ -12,8 +11,8 @@ namespace DrivingSchoolPlatform
 
             // Add services to the container.
             builder.Services.AddRazorComponents()
-                .AddServerComponents()
-                .AddWebAssemblyComponents();
+                .AddInteractiveServerComponents()
+                .AddInteractiveWebAssemblyComponents();
 
             var app = builder.Build();
 
@@ -32,11 +31,12 @@ namespace DrivingSchoolPlatform
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
+            app.UseAntiforgery();
 
             app.MapRazorComponents<App>()
-              .AddServerRenderMode()
-              .AddWebAssemblyRenderMode()
-              .AddAdditionalAssemblies(typeof(Counter).Assembly);
+                .AddInteractiveServerRenderMode()
+                .AddInteractiveWebAssemblyRenderMode()
+                .AddAdditionalAssemblies(typeof(Counter).Assembly);
 
             app.Run();
         }
