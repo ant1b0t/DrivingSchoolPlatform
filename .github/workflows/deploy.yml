@@ -60,3 +60,4 @@ jobs:
           # Run Docker Compose with the environment variables
           docker-compose down 
           docker-compose up --build -d
+          docker builder prune
