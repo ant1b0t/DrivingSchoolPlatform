@@ -17,6 +17,5 @@
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
     <None Include="Migrations\1-initial.sql" />
-    <None Include="nginx.conf" />
   </ItemGroup>
 </Project>
