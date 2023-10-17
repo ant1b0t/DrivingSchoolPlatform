@@ -57,7 +57,9 @@ services:
       - '8081:8081'
     environment:
       - ASPNETCORE_URLS=http://+:8081
+      - VIRTUAL_HOST=89-108-88-127.cloudvps.regruhosting.ru
       - VIRTUAL_PORT=8081
+      - LETSENCRYPT_HOST=89-108-88-127.cloudvps.regruhosting.ru
       - VIRTUAL_PATH=/api
 
   drivingschoolplatform:
@@ -74,6 +76,7 @@ services:
       - VIRTUAL_HOST=89-108-88-127.cloudvps.regruhosting.ru
       - VIRTUAL_PORT=8080
       - LETSENCRYPT_HOST=89-108-88-127.cloudvps.regruhosting.ru
+      - VIRTUAL_PATH=/
 
 volumes:
   db-data:
