@@ -30,7 +30,7 @@ services:
         - /var/run/docker.sock:/var/run/docker.sock
         - ./nginx/acme:/etc/acme.sh
     environment:
-        DEFAULT_EMAIL: ant1b0t@yandex.ru
+        DEFAULT_EMAIL: ${DrivingSchool_SSL_EMAIL}
 
   db:
     image: postgres:latest
@@ -57,9 +57,9 @@ services:
       - '8081:8081'
     environment:
       - ASPNETCORE_URLS=http://+:8081
-      - VIRTUAL_HOST=89-108-88-127.cloudvps.regruhosting.ru
+      - VIRTUAL_HOST=${DrivingSchool_PROD_DOMAIN}
       - VIRTUAL_PORT=8081
-      - LETSENCRYPT_HOST=89-108-88-127.cloudvps.regruhosting.ru
+      - LETSENCRYPT_HOST=${DrivingSchool_PROD_DOMAIN}
       - VIRTUAL_PATH=/api
 
   drivingschoolplatform:
@@ -73,9 +73,9 @@ services:
       - '8080:8080'
     environment:
       - ASPNETCORE_URLS=http://+:8080
-      - VIRTUAL_HOST=89-108-88-127.cloudvps.regruhosting.ru
+      - VIRTUAL_HOST=${DrivingSchool_PROD_DOMAIN}
       - VIRTUAL_PORT=8080
-      - LETSENCRYPT_HOST=89-108-88-127.cloudvps.regruhosting.ru
+      - LETSENCRYPT_HOST=${DrivingSchool_PROD_DOMAIN}
       - VIRTUAL_PATH=/
 
 volumes:
