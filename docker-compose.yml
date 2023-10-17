@@ -46,8 +46,8 @@ services:
       - ./db-data:/var/lib/postgresql/data
       - ./migrations/:/docker-entrypoint-initdb.d/
 
-  backend:
-    image: ${DOCKER_REGISTRY-}backend
+  drivingschoolplatformapi:
+    image: ${DOCKER_REGISTRY-}drivingschoolplatformapi
     build:
       context: .
       dockerfile: DrivingSchoolPlatform.Api/Dockerfile
@@ -60,13 +60,13 @@ services:
       - VIRTUAL_HOST=89-108-88-127.cloudvps.regruhosting.ru
       - LETSENCRYPT_HOST=89-108-88-127.cloudvps.regruhosting.ru
 
-  frontend:
-    image: ${DOCKER_REGISTRY-}frontend
+  drivingschoolplatform:
+    image: ${DOCKER_REGISTRY-}drivingschoolplatform
     build:
       context: .
       dockerfile: DrivingSchoolPlatform/DrivingSchoolPlatform/Dockerfile
     depends_on:
-      - backend
+      - drivingschoolplatformapi
     ports:
       - '8080:8080'
     environment:
