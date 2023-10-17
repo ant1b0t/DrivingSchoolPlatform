@@ -20,6 +20,8 @@ jobs:
       DrivingSchool_PROD_POSTGRES_USER: ${{ secrets.DrivingSchool_PROD_POSTGRES_USER }}
       DrivingSchool_PROD_POSTGRES_PASSWORD: ${{ secrets.DrivingSchool_PROD_POSTGRES_PASSWORD }}
       DrivingSchool_PROD_POSTGRES_DB: ${{ secrets.DrivingSchool_PROD_POSTGRES_DB }}
+      DrivingSchool_PROD_DOMAIN: ${{ secrets.DrivingSchool_PROD_DOMAIN }}
+      DrivingSchool_SSL_EMAIL: ${{ secrets.DrivingSchool_SSL_EMAIL }}
       
     steps:
     - name: Checkout code
