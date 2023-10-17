@@ -46,7 +46,7 @@ services:
       - ./db-data:/var/lib/postgresql/data
       - ./migrations/:/docker-entrypoint-initdb.d/
 
-  drivingschoolplatformapi:
+  drivingschoolplatform.api:
     image: ${DOCKER_REGISTRY-}drivingschoolplatformapi
     build:
       context: .
@@ -66,7 +66,7 @@ services:
       context: .
       dockerfile: DrivingSchoolPlatform/DrivingSchoolPlatform/Dockerfile
     depends_on:
-      - drivingschoolplatformapi
+      - drivingschoolplatform.api
     ports:
       - '8080:8080'
     environment:
