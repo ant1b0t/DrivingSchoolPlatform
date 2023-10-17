@@ -57,9 +57,7 @@ services:
       - '8081:8081'
     environment:
       - ASPNETCORE_URLS=http://+:8081
-      - VIRTUAL_HOST=api.89-108-88-127.cloudvps.regruhosting.ru
       - VIRTUAL_PORT=8081
-      - LETSENCRYPT_HOST=api.89-108-88-127.cloudvps.regruhosting.ru
 
   drivingschoolplatform:
     image: ${DOCKER_REGISTRY-}drivingschoolplatform
