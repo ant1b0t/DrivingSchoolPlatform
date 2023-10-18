@@ -54,6 +54,8 @@ jobs:
           export DrivingSchool_PROD_POSTGRES_USER=${{ env.DrivingSchool_PROD_POSTGRES_USER }}
           export DrivingSchool_PROD_POSTGRES_PASSWORD=${{ env.DrivingSchool_PROD_POSTGRES_PASSWORD }}
           export DrivingSchool_PROD_POSTGRES_DB=${{ env.DrivingSchool_PROD_POSTGRES_DB }}
+          
+          # Set environment variables for Nginx and SSL
           export DrivingSchool_PROD_DOMAIN=${{ env.DrivingSchool_PROD_DOMAIN }}
           export DrivingSchool_SSL_EMAIL=${{ env.DrivingSchool_SSL_EMAIL }}
 
