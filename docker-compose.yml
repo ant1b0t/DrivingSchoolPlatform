@@ -53,8 +53,8 @@ services:
       dockerfile: DrivingSchoolPlatform.Api/Dockerfile
     depends_on:
       - db
-    ports:
-      - '8081:8081'
+    expose:
+        - "8001"
     environment:
       - ASPNETCORE_URLS=http://+:8081
       - VIRTUAL_HOST=${DrivingSchool_PROD_DOMAIN}
@@ -69,8 +69,8 @@ services:
       dockerfile: DrivingSchoolPlatform/DrivingSchoolPlatform/Dockerfile
     depends_on:
       - drivingschoolplatform.api
-    ports:
-      - '8080:8080'
+    expose:
+        - "8000"
     environment:
       - ASPNETCORE_URLS=http://+:8080
       - VIRTUAL_HOST=${DrivingSchool_PROD_DOMAIN}
